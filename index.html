@@ -485,46 +485,20 @@
 <h2 id='register-user'>Register user</h2>
 <p>Ths endpoint will trigger email verification. You should check your email for verification link.</p>
 
-<aside class="notice">
-This endpoint can be used only by the root domain owner as it require authToken.
-</aside>
-<h3 id='http-request'>HTTP Request</h3>
-<p><strong><code>POST /api/synxpass/create-user</code></strong></p>
-<h3 id='query-parameters'>Query Parameters</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/create-user <span class="se">\ </span>
-<span class="nt">-H</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span> <span class="se">\ </span>
-<span class="nt">-d</span> <span class="s2">"username={{username}}&amp;password={{password}}&amp;password2={{password2}}&amp;authToken={{authToken}}"</span>
-</code></pre></div>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>username</td>
-<td>false</td>
-<td>Your email address</td>
-</tr>
-<tr>
-<td>password</td>
-<td>false</td>
-<td>Password</td>
-</tr>
-<tr>
-<td>password2</td>
-<td>false</td>
-<td>Repeat password</td>
-</tr>
-<tr>
-<td>authToken</td>
-<td>false</td>
-<td>Root domain owner token</td>
-</tr>
-</tbody></table>
-<h3 id='response'>Response</h3>
 <blockquote>
-<p>OK</p>
+<p><strong>REQUEST</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/create-user <span class="se">\ </span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\ </span>
+<span class="nt">-d</span> <span class="s1">'{
+  "username": "{{username}}",
+  "authToken": "{{authToken}}",
+  "password": "{{password}}",
+  "password2": "{{password2}}"
+}'</span>
+</code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
@@ -537,51 +511,122 @@ This endpoint can be used only by the root domain owner as it require authToken.
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<aside class="success">
-  <strong>200</strong>
+<aside class="notice">
+This endpoint can be used only by the root domain owner as it require authToken.
 </aside>
+<h3 id='http-request'>HTTP Request</h3>
+<p><strong><code>POST /api/synxpass/create-user</code></strong></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>username</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Email</td>
+</tr>
+<tr>
+<td>password</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>password2</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>authToken</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+</tbody></table>
 <h2 id='verify-user'>Verify user</h2>
 <p>This endpoint will verify your email. After that you can continue registraton proccess.</p>
 
+<blockquote>
+<p><strong>REQUEST</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/verify-user <span class="se">\ </span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\ </span>
+<span class="nt">-d</span> <span class="s1">'{
+  "username": "{{username}}",
+  "authToken": "{{authToken}}",
+  "verification": "{{verificationToken}}"
+}'</span>
+</code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Server got your request, but something went wrong</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <aside class="notice">
 This endpoint can be used only by the root domain owner as it require authToken.
 </aside>
 <h3 id='http-request-2'>HTTP request</h3>
 <p><strong><code>POST /api/synxpass/verify-user</code></strong></p>
 <h3 id='query-parameters-2'>Query Parameters</h3>
-<blockquote>
-<p>CURL</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/verify-user <span class="se">\ </span>
-<span class="nt">-H</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span> <span class="se">\ </span>
-<span class="nt">-d</span> <span class="s2">"username={{username}}&amp;verification={{verificationToken}}&amp;authToken={{authToken}}"</span>
-</code></pre></div>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Type</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>username</td>
-<td>false</td>
-<td>Your email address</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Email</td>
 </tr>
 <tr>
 <td>verificationToken</td>
-<td>false</td>
+<td>STRING</td>
+<td>YES</td>
 <td>You can get this token from the url that you got on your email</td>
 </tr>
 <tr>
 <td>authToken</td>
-<td>false</td>
-<td>Root domain owner token</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
 </tr>
 </tbody></table>
-<h3 id='response-2'>Response</h3>
+<h2 id='register-user-2'>Register user</h2>
+<p>This endpoint will finally register user in the system.</p>
+
 <blockquote>
-<p>OK</p>
+<p><strong>REQUEST</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/register-user <span class="se">\ </span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\ </span>
+<span class="nt">-d</span> <span class="s1">'{
+  "username": "{{username}}",
+  "authToken": "{{authToken}}",
+  "password": "{{password}}"
+}'</span>
+</code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
@@ -594,99 +639,54 @@ This endpoint can be used only by the root domain owner as it require authToken.
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<aside class="success">
-  <strong>200</strong>
-</aside>
-<h2 id='register-user-2'>Register user</h2>
-<p>This endpoint will finally register user in the system.</p>
-
 <aside class="notice">
 This endpoint can be used only by the root domain owner as it require authToken.
 </aside>
 <h3 id='http-request-3'>HTTP request</h3>
 <p><strong><code>POST /api/synxpass/register-user</code></strong></p>
 <h3 id='query-parameters-3'>Query Parameters</h3>
-<blockquote>
-<p>CURL</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/register-user <span class="se">\ </span>
-<span class="nt">-H</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span> <span class="se">\ </span>
-<span class="nt">-d</span> <span class="s2">"username={{username}}&amp;password={{password}}&amp;authToken={{authToken}}"</span>
-</code></pre></div>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Type</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>username</td>
-<td>false</td>
-<td>Your email address</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Email</td>
 </tr>
 <tr>
 <td>password</td>
-<td>false</td>
-<td>Password</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
 </tr>
 <tr>
 <td>authToken</td>
-<td>false</td>
-<td>Root domain owner token</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
 </tr>
 </tbody></table>
-<h3 id='response-3'>Response</h3>
-<blockquote>
-<p>OK</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p>Server got your request, but something went wrong</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<aside class="success">
-  <strong>200</strong>
-</aside>
 <h2 id='get-token'>Get token</h2>
 <p>This endpoint will give you a token.</p>
-<h3 id='http-request-4'>HTTP request</h3>
-<p><strong><code>POST /api/synxpass/get-token</code></strong></p>
-<h3 id='query-parameters-4'>Query Parameters</h3>
+
 <blockquote>
-<p>CURL</p>
+<p><strong>REQUEST</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/get-token <span class="se">\ </span>
-<span class="nt">-H</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span> <span class="se">\ </span>
-<span class="nt">-d</span> <span class="s2">"username={{username}}&amp;password={{password}}"</span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\ </span>
+<span class="nt">-d</span> <span class="s1">'{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}'</span>
 </code></pre></div>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>username</td>
-<td>false</td>
-<td>Your email address</td>
-</tr>
-<tr>
-<td>password</td>
-<td>false</td>
-<td>Password</td>
-</tr>
-</tbody></table>
-<h3 id='response-4'>Response</h3>
 <blockquote>
-<p>OK</p>
+<p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aToken_yourToken"</span><span class="w">
@@ -698,91 +698,44 @@ This endpoint can be used only by the root domain owner as it require authToken.
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<aside class="success">
-  <strong>200</strong>
-</aside>
-<h2 id='forgot-password'>Forgot password</h2>
-<p>This endpoint will send you an email with the temporary password which you should use to create new password in the next request.</p>
-<h3 id='http-request-5'>HTTP request</h3>
-<p><strong><code>POST /api/synxpass/forgot-password</code></strong></p>
-<h3 id='query-parameters-5'>Query Parameters</h3>
-<blockquote>
-<p>CURL</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/forgot-password <span class="se">\ </span>
-<span class="nt">-H</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span> <span class="se">\ </span>
-<span class="nt">-d</span> <span class="s2">"username={{username}}"</span>
-</code></pre></div>
+</span></code></pre></div><h3 id='http-request-4'>HTTP request</h3>
+<p><strong><code>POST /api/synxpass/get-token</code></strong></p>
+<h3 id='query-parameters-4'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Type</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>username</td>
-<td>false</td>
-<td>Your email address</td>
-</tr>
-</tbody></table>
-<h3 id='response-5'>Response</h3>
-<blockquote>
-<p>OK</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p>Server got your request, but something went wrong</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<aside class="success">
-  <strong>200</strong>
-</aside>
-<h2 id='new-password'>New password</h2>
-<p>This endpoint allow you to create a new password.</p>
-<h3 id='http-request-6'>HTTP request</h3>
-<p><strong><code>POST /api/synxpass/new-password</code></strong></p>
-<h3 id='query-parameters-6'>Query Parameters</h3>
-<blockquote>
-<p>CURL</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/new-password <span class="se">\ </span>
-<span class="nt">-H</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span> <span class="se">\ </span>
-<span class="nt">-d</span> <span class="s2">"username={{username}}&amp;password={{password}}&amp;tempPassword={{tempPassword}}"</span>
-</code></pre></div>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>username</td>
-<td>false</td>
-<td>Your email address</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Email</td>
 </tr>
 <tr>
 <td>password</td>
-<td>false</td>
-<td>New password</td>
-</tr>
-<tr>
-<td>tempPassword</td>
-<td>false</td>
-<td>Temporary password which you should get from url that you got on your email</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
 </tr>
 </tbody></table>
-<h3 id='response-6'>Response</h3>
+<h2 id='forgot-password'>Forgot password</h2>
+<p>This endpoint will send you an email with the temporary password which you should use to create new password in the next request.</p>
+
 <blockquote>
-<p>OK</p>
+<p><strong>REQUEST</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/forgot-password <span class="se">\ </span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\ </span>
+<span class="nt">-d</span> <span class="s1">'{
+  "username": "{{username}}"
+}'</span>
+</code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
@@ -794,10 +747,81 @@ This endpoint can be used only by the root domain owner as it require authToken.
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="w">
 </span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-5'>HTTP request</h3>
+<p><strong><code>POST /api/synxpass/forgot-password</code></strong></p>
+<h3 id='query-parameters-5'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>username</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Email</td>
+</tr>
+</tbody></table>
+<h2 id='new-password'>New password</h2>
+<p>This endpoint allow you to create a new password.</p>
+
+<blockquote>
+<p><strong>REQUEST</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST https://synxhive.com/api/synxpass/new-password <span class="se">\ </span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\ </span>
+<span class="nt">-d</span> <span class="s1">'{
+  "username": "{{username}}",
+  "password": "{{password}}",
+  "tempPassword": "{{tempPassword}}"
+}'</span>
+</code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<aside class="success">
-  <strong>200</strong>
-</aside>
+<blockquote>
+<p>Server got your request, but something went wrong</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-6'>HTTP request</h3>
+<p><strong><code>POST /api/synxpass/new-password</code></strong></p>
+<h3 id='query-parameters-6'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>username</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Email</td>
+</tr>
+<tr>
+<td>password</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>tempPassword</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Temporary password which you should get from url that you got on your email</td>
+</tr>
+</tbody></table>
 <h1 id='domains'>Domains</h1>
 <p>Domain related endpoints.</p>
 <h2 id='get-subdomains'>Get subdomains</h2>
